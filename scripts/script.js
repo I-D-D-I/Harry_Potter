@@ -4,7 +4,7 @@ import { data } from './data.js'
 const cont = document.querySelector('.services__wrapper');
 const inputLine = document.querySelector('.header__input');
 const selectLine = document.querySelector('.header__select');
-const newArr = [];
+const newData = [];
 
 function createCard(newObj) {
   const cardNew = document.createElement('div');
@@ -20,22 +20,25 @@ function createCard(newObj) {
   // поиск по селекту
   function handleSelect() {
     const valueSelect = selectLine.value;
+    const valueInput = inputLine.value;
     cont.innerHTML = '';
-    const newData = data.filter((item) => item.house.includes(selectLine.value));
+    const newData = data.filter((item) => item.house.includes(selectLine.value) || selectLine.value == "")
+    .filter((item) => item.name.toLowerCase().includes(valueInput.toLowerCase().trim()));
     return newData.forEach((card) => createCard(card));
   }
   selectLine.addEventListener('change', handleSelect)
+  inputLine.addEventListener('input', handleSelect);
 
   // поиск по имени
-  function handleInputSelect() {
-    const valueInput = inputLine.value;
-    cont.innerHTML = '';
-    const newData = data
-    .filter((item) => item.name.toLowerCase().includes(valueInput.toLowerCase().trim()))
-    .filter((item) => item.house.includes(selectLine.value));
-    return newData.forEach((card) => createCard(card));
-    };
-inputLine.addEventListener('input', handleInputSelect);
+  // function handleInputSelect() {
+  //   const valueInput = inputLine.value;
+  //   cont.innerHTML = '';
+  //   const newData = data
+  //   .filter((item) => item.name.toLowerCase().includes(valueInput.toLowerCase().trim()))
+  //   .filter((item) => item.house.includes(selectLine.value));
+  //   return newData.forEach((card) => createCard(card));
+  //   };
+// inputLine.addEventListener('input', handleInputSelect);
 
 
 
